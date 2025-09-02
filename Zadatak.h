@@ -15,5 +15,6 @@ public:
     ostream& Prikazi(ostream& os)override;
     void setujLinija(int lin) { brojLinija = lin; }
     double vratiLin() { return brojLinija; }
+    float ukVreme(float proc);
 };
 

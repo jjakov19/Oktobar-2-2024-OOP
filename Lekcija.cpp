@@ -16,6 +16,11 @@ Lekcija::Lekcija(const Lekcija& l) {
 	this->duzinaStranica = l.duzinaStranica;
 }
 Lekcija::~Lekcija(){}
+float Lekcija::ukVreme(float proc) {
+	float ukVr = 0;
+	ukVr = duzinaStranica * tezina * proc;
+	return ukVr;
+}
 
 ostream& Lekcija::Prikazi(ostream& os) {
 	os << "Oznaka: " << oznaka << " Tezina: " << tezina << " Status: " << status << " Duzina: " << duzinaStranica << endl;

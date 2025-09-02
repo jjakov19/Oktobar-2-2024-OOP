@@ -20,6 +20,6 @@ public:
 	void Savladaj(int br);
 	int UkupnoSavladanih();
 	float UkupnoVreme(float vr);
-	void VratiNaj(float vr, IspitniMaterijal* ptr1, IspitniMaterijal* ptr2);
+	void VratiNaj(float vr, IspitniMaterijal** ptr1, IspitniMaterijal** ptr2);
 };
 

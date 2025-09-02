@@ -91,8 +91,26 @@ int IspitPriprema::UkupnoSavladanih() {
 	return ukSv;
 }
 float IspitPriprema::UkupnoVreme(float vr) {
-
+	float Ukvr = 0;
+	for (int i = 0; i < trBr; i++) {
+		Ukvr = niz[i]->ukVreme(vr);
+	}
+	return Ukvr;
 }
-void IspitPriprema::VratiNaj(float vr, IspitniMaterijal* ptr1, IspitniMaterijal* ptr2) {
+void IspitPriprema::VratiNaj(float vr, IspitniMaterijal** ptr1, IspitniMaterijal** ptr2) {
+	float vrMax = niz[0]->ukVreme(vr);
+	float vrMin = niz[0]->ukVreme(vr);
+	float trVr = 0;
 
+	for (int i = 1; i < trBr; i++) {
+		trVr = niz[i]->ukVreme(vr);
+		if (trVr > vrMax) {
+			vrMax = trVr;
+			*ptr1 = niz[i];
+		}
+		if (trVr < vrMin) {
+			vrMin = trVr;
+			*ptr2 = niz[i];
+		}
+	}
 }

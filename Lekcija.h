@@ -15,5 +15,6 @@ public:
     ostream& Prikazi(ostream& os)override;
     void setujDuzinu(double duz) { duzinaStranica = duz; }
     double vratiDuz() { return duzinaStranica; }
+    float ukVreme(float proc);
 };
 

@@ -20,5 +20,6 @@ public:
 	virtual void setujOznaku(int oz);
 	virtual double vratiTezinu() { return tezina; }
 	virtual void setujTezinu(double tez);
+	virtual float ukVreme(float proc) = 0;
 };
 
