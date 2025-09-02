@@ -79,7 +79,11 @@ void IspitPriprema::Savladaj(int br) {
 	if (br < 0) {
 		return;
 	}
-	niz[br]->setujStatus(true);
+	for (int i = 0; i < trBr; i++) {
+		if (niz[i]->vratiOznaku() == br) {
+			niz[i]->setujStatus(true);
+		}
+	}
 }
 int IspitPriprema::UkupnoSavladanih() {
 	int ukSv = 0;
