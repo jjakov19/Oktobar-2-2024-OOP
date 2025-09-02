@@ -165,9 +165,6 @@ void Ispit<T>::Sacuvaj(const char* nazivFajla) {
 
 		for (int i = 0; i < trBr; i++) {
 			fajl << niz[i];
-			if (i < trBr - 1) {  // Dodaj newline osim za poslednji element
-				fajl << endl;
-			}
 		}
 
 		fajl.close();
@@ -185,19 +182,10 @@ void Ispit<T>::Ucitaj(const char* nazivFajla) {
 	// ?itaj dok god uspešno ?itaš podatke
 	while (trBr < maxBr) {
 		fajl >> pom;
-
 		// Proveri da li je ?itanje uspešno
 		if (fajl.fail()) {
-			// Proveri da li je kraj fajla
-			if (fajl.eof()) {
-				break; // Kraj fajla
-			}
-			// Resetuj error flags i presko?i loš podatak
-			fajl.clear();
-			fajl.ignore(1000, '\n'); // Presko?i do kraja linije
-			continue;
+			break;
 		}
-
 		niz[trBr] = pom;
 		trBr++;
 	}
