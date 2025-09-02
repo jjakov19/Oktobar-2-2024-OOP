@@ -4,7 +4,8 @@
 using namespace std;
 
 LekcijaNormalna::LekcijaNormalna() {
-	naziv = nullptr;
+	naziv = new char[1];
+	naziv[0] = '\0';
 	duzina = 0;
 	procTez = 0;
 }
@@ -32,11 +33,17 @@ istream& operator>>(istream& ulaz, LekcijaNormalna& l) {
 	return ulaz;
 }
 ostream& LekcijaNormalna::prikazi(ostream& os) {
-	os << "Naziv: " << naziv << " Duzina: " << duzina << " ProcTez: " << procTez << endl;
+	os<< naziv <<" " << duzina << " " << procTez << endl;
 	return os;
 }
 istream& LekcijaNormalna::upisi(istream& is) {
-	is >> this->naziv >> this->duzina >> this->procTez;
+	char tempNaziv[100];
+	is >> tempNaziv >> duzina >> procTez;
+
+	delete[] naziv;  // DODAJTE OVO!
+	naziv = new char[strlen(tempNaziv) + 1];
+	strcpy(naziv, tempNaziv);
+
 	return is;
 }
 void LekcijaNormalna::setujTez(float t) {
@@ -44,4 +51,15 @@ void LekcijaNormalna::setujTez(float t) {
 }
 void LekcijaNormalna::setujDuz(float duz) {
 	this->duzina = duz;
+}
+
+LekcijaNormalna& LekcijaNormalna::operator=(const LekcijaNormalna& other) {
+	if (this != &other) {
+		delete[] naziv;
+		this->naziv = new char[strlen(other.naziv) + 1];
+		strcpy(naziv, other.naziv);
+		this->duzina = other.duzina;
+		this->procTez = other.procTez;
+	}
+	return *this;
 }

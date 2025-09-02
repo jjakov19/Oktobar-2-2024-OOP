@@ -1,0 +1,11 @@
+prva 1.5 1.2
+
+druga 2.7 3.1
+
+treca 3.2 2.5
+
+cetvrta 0.8 3.4
+
+osma 2.3 3.7
+
+deveta 3.6 2.8

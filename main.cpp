@@ -58,7 +58,7 @@ void zadatak1()
 	delete pIspit;
 }
 void zadatak2() {
-	int maxPodataka = 8, brojPodataka = 8;
+	int maxPodataka = 9, brojPodataka = 9;
 	// 3 boda
 	// postavljanje i prihvatanje izuzetaka
 	try{
@@ -123,7 +123,7 @@ void zadatak2() {
 		ispNor.Sacuvaj("IspNormal.txt");
 		// 1 bod
 		Ispit<LekcijaNormalna> ispNorUc(maxPodataka);
-		ispNorUc.Ucitaj("IspNormalB.txt");
+		ispNorUc.Ucitaj("IspNormal.txt");
 		cout << ispNorUc << endl; //novValUc.Ispisi(cout);
 	}
 	catch(const runtime_error& t){

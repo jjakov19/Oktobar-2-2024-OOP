@@ -143,6 +143,7 @@
     <ClInclude Include="Zadatak.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="IspNormal.txt" />
     <Text Include="IspProst.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

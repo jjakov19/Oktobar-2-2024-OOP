@@ -3,6 +3,7 @@
 using namespace std;
 #include "LekcijaNormalna.h"
 #include <fstream>
+#include <string>
 template<typename T>
 class Ispit {
 	T* niz;
@@ -29,7 +30,7 @@ public:
 	void Izbaci(int redBr, int brLek);
 	float Ukupno();
 	int UkupniBrojVrednost(float vr,float& ukVr);
-	void minMax(int poc, int kraj, T min, T max);
+	void minMax(int poc, int kraj, T& min, T& max);
 	void Sacuvaj(const char* nazivFajla);
 	void Ucitaj(const char* nazivFajla);
 };
@@ -52,7 +53,7 @@ Ispit<T>::Ispit(const Ispit& is) {
 	this->trBr = is.trBr;
 	this->niz = new T[maxBr];
 	for (int i = 0; i < maxBr; i++) {
-		this->niz[i] = new T(*is.niz[i]);
+		this->niz[i] = is.niz[i];
 	}
 }
 template<typename T>
@@ -69,21 +70,23 @@ void Ispit<T>::Dodaj(T is){
 
 template<typename T>
 void Ispit<T>:: Izbaci(int redBr, int brLek) {
-	if (redBr < 0) {
+	if (redBr < 0 || redBr >= trBr) {
 		throw runtime_error("Pogresno unet broj!");
 	}
-	if (redBr + brLek >= maxBr) {
+	if (redBr + brLek > trBr) { // >= treba da bude >
 		throw runtime_error("Hocete da brisete vise elemenata nego sto imate!");
 	}
-	for (int i = redBr; i < redBr + brLek; i++) {
-		niz[i] = niz[i + 1];
+
+	// Pomeri elemente unazad
+	for (int i = redBr; i < trBr - brLek; i++) {
+		niz[i] = niz[i + brLek];
 	}
-	trBr -= brLek + 1;
+	trBr -= brLek;
 }
 template<typename T>
 float Ispit<T>::Ukupno() {
 	float uk = 0;
-	for (int i = 0; i < maxBr; i++) {
+	for (int i = 0; i < trBr; i++) {
 		uk += niz[i];
 	}
 	return uk;
@@ -91,7 +94,7 @@ float Ispit<T>::Ukupno() {
 template<>
 float Ispit<LekcijaNormalna>::Ukupno() {
 	float uk = 0;
-	for (int i = 0; i < maxBr; i++) {
+	for (int i = 0; i < trBr; i++) {
 		uk += niz[i].vratiTez();
 	}
 	return uk;
@@ -120,11 +123,11 @@ int Ispit<LekcijaNormalna>::UkupniBrojVrednost(float vr, float& ukVr) {
 	return brel;
 }
 template<typename T>
-void Ispit<T>::minMax(int poc, int kraj, T min, T max) {
+void Ispit<T>::minMax(int poc, int kraj, T& min, T& max) {
 	T minimum = niz[poc];
 	T maximum = niz[poc];
 	T trenutno;
-	for (int i = poc+1; i < kraj; i++) {
+	for (int i = poc; i < kraj; i++) {
 		trenutno = niz[i];
 		if (trenutno > maximum) {
 			maximum = trenutno;
@@ -137,7 +140,7 @@ void Ispit<T>::minMax(int poc, int kraj, T min, T max) {
 	}
 }
 template<>
-void Ispit<LekcijaNormalna>::minMax(int poc, int kraj, LekcijaNormalna min, LekcijaNormalna max) {
+void Ispit<LekcijaNormalna>::minMax(int poc, int kraj, LekcijaNormalna& min, LekcijaNormalna& max) {
 	float minimum = niz[poc].vratiTez();
 	float maximum = niz[poc].vratiTez();
 	float trenutno;
@@ -155,25 +158,49 @@ void Ispit<LekcijaNormalna>::minMax(int poc, int kraj, LekcijaNormalna min, Lekc
 }
 template<typename T>
 void Ispit<T>::Sacuvaj(const char* nazivFajla) {
-	ofstream fajl(nazivFajla);
-	if (!fajl.good()) {
-		throw runtime_error("Nije dobro otvoren fajl!");
-	}
-	for (int i = 0; i < trBr; i++) {
-		fajl << niz[i];
-	}
+		ofstream fajl(nazivFajla);
+		if (!fajl.is_open()) {  // Bolje koristiti is_open() umesto good()
+			throw runtime_error("Nije dobro otvoren fajl!");
+		}
+
+		for (int i = 0; i < trBr; i++) {
+			fajl << niz[i];
+			if (i < trBr - 1) {  // Dodaj newline osim za poslednji element
+				fajl << endl;
+			}
+		}
+
+		fajl.close();
 }
 template<typename T>
 void Ispit<T>::Ucitaj(const char* nazivFajla) {
 	ifstream fajl(nazivFajla);
-	if (!fajl.good()) {
+	if (!fajl.is_open()) {
 		throw runtime_error("Nije dobro otvoren fajl!");
 	}
-	
-	int i = 0;
-	T* pomniz = new T[maxBr];
-	while (fajl >> pomniz[i]) {
-		niz[i] = pomniz[i];
-		i++;
+
+	trBr = 0;
+	T pom;
+
+	// ?itaj dok god uspešno ?itaš podatke
+	while (trBr < maxBr) {
+		fajl >> pom;
+
+		// Proveri da li je ?itanje uspešno
+		if (fajl.fail()) {
+			// Proveri da li je kraj fajla
+			if (fajl.eof()) {
+				break; // Kraj fajla
+			}
+			// Resetuj error flags i presko?i loš podatak
+			fajl.clear();
+			fajl.ignore(1000, '\n'); // Presko?i do kraja linije
+			continue;
+		}
+
+		niz[trBr] = pom;
+		trBr++;
 	}
+
+	fajl.close();
 }

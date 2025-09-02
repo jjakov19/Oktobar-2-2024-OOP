@@ -58,5 +58,8 @@
     <Text Include="IspProst.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="IspNormal.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
