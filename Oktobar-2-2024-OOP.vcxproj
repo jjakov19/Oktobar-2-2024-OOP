@@ -130,14 +130,20 @@
     <ClCompile Include="IspitniMaterijal.cpp" />
     <ClCompile Include="IspitPriprema.cpp" />
     <ClCompile Include="Lekcija.cpp" />
+    <ClCompile Include="LekcijaNormalna.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Zadatak.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ispit.h" />
     <ClInclude Include="IspitniMaterijal.h" />
     <ClInclude Include="IspitPriprema.h" />
     <ClInclude Include="Lekcija.h" />
+    <ClInclude Include="LekcijaNormalna.h" />
     <ClInclude Include="Zadatak.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="IspProst.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

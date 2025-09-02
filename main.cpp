@@ -4,7 +4,8 @@ using namespace std;
 #include "IspitPriprema.h"
 #include"Lekcija.h"
 #include "Zadatak.h"
-
+#include "LekcijaNormalna.h"
+#include "Ispit.h"
 
 
 void zadatak1()
@@ -56,11 +57,11 @@ void zadatak1()
 	// 1 poena
 	delete pIspit;
 }
-/*void zadatak2() {
-	int maxPodataka = 8, brojPodataka = 9;
+void zadatak2() {
+	int maxPodataka = 8, brojPodataka = 8;
 	// 3 boda
 	// postavljanje i prihvatanje izuzetaka
-	{
+	try{
 		float tezine[] = { 1.5, 2.7, 3.2, 0.8, 1.8, 4.1, 2.5, 2.3, 3.6 };
 		Ispit<float> ispit(maxPodataka);
 		// 1 bod
@@ -88,7 +89,10 @@ void zadatak1()
 		ispUc.Ucitaj("IspProst.txt");
 		cout << ispUc << endl; //novUcitan.Ispisi(cout);
 	}
-	{
+	catch(const runtime_error&e){
+		cout << "Runtime error-" << e.what() << endl;
+	}
+	try{
 		char naziv[][8] = { "prva", "druga", "treca", "cetvrta", "peta",
 		"sesta", "sedma", "osma", "deveta" };
 		float tezine[] = { 1.5, 2.7, 3.2, 0.8, 1.8, 4.1, 2.5, 2.3, 3.6 };
@@ -122,9 +126,13 @@ void zadatak1()
 		ispNorUc.Ucitaj("IspNormalB.txt");
 		cout << ispNorUc << endl; //novValUc.Ispisi(cout);
 	}
-}*/
-void main()
+	catch(const runtime_error& t){
+		cout << "Runtime eroor-" << t.what() << endl;
+	}
+}
+int main()
 {
 	zadatak1();
-	//zadatak2();
+	zadatak2();
+	return 0;
 }

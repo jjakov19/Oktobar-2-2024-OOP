@@ -30,6 +30,9 @@
     <ClCompile Include="IspitPriprema.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LekcijaNormalna.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IspitniMaterijal.h">
@@ -44,5 +47,16 @@
     <ClInclude Include="IspitPriprema.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ispit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LekcijaNormalna.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="IspProst.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
