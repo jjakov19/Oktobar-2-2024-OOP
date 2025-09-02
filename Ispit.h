@@ -186,8 +186,7 @@ void Ispit<T>::Ucitaj(const char* nazivFajla) {
 		if (fajl.fail()) {
 			break;
 		}
-		niz[trBr] = pom;
-		trBr++;
+		niz[trBr++] = pom;
 	}
 	fajl.close();
 	
